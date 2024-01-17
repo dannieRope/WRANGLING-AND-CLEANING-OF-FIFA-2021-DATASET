@@ -92,14 +92,28 @@ Here are the descriptions of some columns in the dataset.
 To bring the data into Power Query Editor, head over to the Data tab in Microsoft Excel.
 
 Click on "Get Data" and then select "From File," followed by "From Text/CSV." 
+
+![Screenshot (440)](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/45e07307-e759-44c4-a609-cad5e8533b54)
+
 Pick the location of the file to load it into the Query Editor.
 
-We start getting the data ready by removing some columns that we don't need or won't help us with our analysis.
+![Loaded data](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/653aed6d-ef77-4a49-8707-53ab040e87a0)
+
+
+We start getting the data ready by removing some columns that we don't need or won't help us with further analysis.
 
 These columns are Photo URL and Player URL. To remove these columns, select the two columns.
-Right click and select “remove columns” from the drop-down list. 
+
+Right click and select “remove columns” from the drop-down list as show in the image below. 
+
+![Screenshot (441)](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/150b8469-ed60-4c18-846f-6279fc4ee883)
+
 
 The ID uniquely identifies each player in the dataset. When we check with the column profiler in the View tab, we see that player ID 251698 shows up more than once.
+
+![Screenshot (442)](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/d571c1e7-f2d0-4a14-8c24-92aad5c31d0e)
+
+
 
 This indicates that the ID 251698 got repeated, and we need to fix that by removing duplicates on the ID column.
 
