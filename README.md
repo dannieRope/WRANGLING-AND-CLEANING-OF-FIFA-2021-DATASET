@@ -36,6 +36,7 @@ By the end of this exercise, the dataset must be free of the following.
 
 
 # THE DATASET
+
 The FIFA 2021 dataset downloaded from Kaggle via this [Link]( https://www.kaggle.com/datasets/yagunnersya/fifa-21-messy-raw-dataset-for-cleaning-exploring/download?datasetVersionNumber=2). 
 
 The dataset is a CSV file containing details about football players in 2021. It has about 18,979 rows and 77 columns.
