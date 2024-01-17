@@ -4,9 +4,9 @@
 
 Before you can analyse any type of data, it's important to ensure that the data is in good shape (clean) and ready for the intended analysis.
 
-So, what exactly is clean data? 
+So, what exactly is a clean data? 
 
-Clean data refers to a dataset that has been processed to be free of missing values, inaccuracies, duplicates, errors, misspellings, null entries, outliers, and more.
+A clean data refers to a dataset that has been processed to be free of missing values, inaccuracies, duplicates, errors, misspellings, null entries, outliers, and more.
 
 Having the skill to clean and prepare data is essential for anyone aspiring to be a proficient analyst.
 
@@ -18,7 +18,7 @@ Power Query is a data transformation tool found in both Microsoft Excel and Powe
 
 ## OBJECTIVES
 
-The objective of this challenge is to prepare the data provided for this exercise and made it available for analysis by using ETL Approach.
+The objective of this challenge is to prepare the data provided for this exercise and make it available for further analysis by using ETL Approach.
 
 By the end of this exercise, the dataset must be free of the following.
 
@@ -94,11 +94,22 @@ Click on "Get Data" and then select "From File," followed by "From Text/CSV."
 Pick the location of the file to load it into the Query Editor.
 
 We start getting the data ready by removing some columns that we don't need or won't help us with our analysis.
-These columns are Photo URL and Player URL. To remove these columns, select the two columns. Right click and select “remove columns” from the drop-down list. 
-The ID uniquely identifies each player in the dataset. When we check with the column profiler in the View tab, we see that player ID 251698 shows up more than once. This indicates that the ID 251698 got repeated, and we need to fix that by removing duplicates on the ID column.
+
+These columns are Photo URL and Player URL. To remove these columns, select the two columns.
+Right click and select “remove columns” from the drop-down list. 
+
+The ID uniquely identifies each player in the dataset. When we check with the column profiler in the View tab, we see that player ID 251698 shows up more than once.
+
+This indicates that the ID 251698 got repeated, and we need to fix that by removing duplicates on the ID column.
+
 To fix that, select the ID column. Right click and choose “remove duplicates” from the drop-down list. 
-Checking for misspelling in the “Name” column, I found that all names are correct except one. This name has a special character which needs to be replaced. 
-The "Name" column is a combination of the first initial of the player's first name and their full last name. To fix this, I replaced the special character with (S) which is the first initial of the player's first name.
+
+Checking for misspelling in the “Name” column, I found that all names are correct except one. 
+This name has a special character which needs to be replaced. 
+The "Name" column is a combination of the first initial of the player's first name and their full last name. 
+
+To fix this, I replaced the special character with (S) which is the first initial of the player's first name.
+
 Dealing with the "Team and Contract" column involves some steps. We need to separate the club names from the contract years. First, split the column using the delimiter (~).
 To do this, click on the "Split Column" option in the Home or Transform tab. Choose "By delimiter" from the list, specify the delimiter (~). and click okay.
 Next action is to extract the year at the end of each club name. Select the column (Team and Contract.1), click on “Split Column” option in the Home or Transform tab. Choose “By number of Characters”. In the pop-up window, specify the number of characters (4), select “Once as far right as possible” and click Okay. 
