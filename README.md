@@ -1,4 +1,4 @@
-#   WRANGLING AND CLEANING OF FIFA 2021 DATASET
+#         WRANGLING AND CLEANING OF FIFA 2021 DATASET
 
 ![image](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/421e5e4f-3384-48a6-87b2-857aeba77717)
 
@@ -128,20 +128,79 @@ To fix this, replace the special character with (S) which is the first initial o
 
 Dealing with the "Team and Contract" column involves some steps. There is the need to separate the club names from the contract years.
 
-First, split the column using the delimiter (~).
-To do this, click on the "Split Column" option in the Home or Transform tab. 
-Choose "By delimiter" from the list, specify the delimiter (~). and click okay.
+First, split the column using the delimiter(~).
 
-Next action is to extract the year at the end of each club name. Select the column (Team and Contract.1), click on “Split Column” option in the Home or Transform tab. Choose “By number of Characters”. In the pop-up window, specify the number of characters (4), select “Once as far right as possible” and click Okay. 
-Rename Column “Team & Contract.1.1” to “Team”
-Looking at the "Team" column, there are some issues that need fixing. 
-For the players that Free, the club has free and date attached to it 
-For players on loan, the club has the loan date and “On Loan” attached to it as shown below. 
-To remove the Free and date +” On Loan” attached, I employed the following M-codes.  
+To do this, click on the "Split Column" option in the Home or Transform tab. 
+
+Choose "By delimiter" from the list, specify the delimiter and click okay. 
+
+![deliter fex](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/b6bb589c-af5a-4530-9327-166b74c5cbf5)
+
+
+Next action is to extract the year at the end of each club name in Column "Team and Contract.1". 
+
+Select the column (Team and Contract.1), click on “Split Column” option in the Home or Transform tab. 
+
+Choose “By number of Characters”. 
+
+In the pop-up window, specify the number of characters (4), select “Once as far right as possible” and click Okay. 
+
+![position](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/defaadf9-ef97-477f-b7c5-79645bd70795)
+
+Rename the column "Team & Contract.1.1" to "Team."
+
+Upon reviewing the "Team" column, certain issues need addressing.
+
+For players marked as Free, the club name includes "Free" and a date.
+
+For players on loan, the club name includes the loan date and "On Loan."
+
+To remove the appended "Free" and date, or "On Loan" for loaned players, the following M-codes were employed:
+
+```m
+= Table.ReplaceValue(
+    #"Renamed Columns2",
+    each [Team],
+    each if Text.EndsWith([Team], "Fr") then Text.Start([Team], Text.Length([Team]) - 2) else [Team],
+    Replacer.ReplaceValue,
+    {"Team"}
+)
+```
+
+![free](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/a3f794a4-0fe9-4530-a3bd-1b5af0db9afd)
+
+
+```m
+= Table.ReplaceValue(
+    #"Remove Fr",
+    each [Team],
+    each if Text.EndsWith([Team], "Lo") then Text.Start([Team], Text.Length([Team]) - 18) else [Team],
+    Replacer.ReplaceValue,
+    {"Team"}
+)
+```
+![loan](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/e5460326-8540-4e3e-9871-41f4d4f6214f)
+
+
+![onloand](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/4bb7eff8-c325-4dd9-9429-23e569bb328d)
+
+
 Rename Column “Team & Contract.1.2” and “Team & Contract.2” to “Contract StartYear” and “Contract EndYear” respectively. 
+
 In the Contract StartYear Column, replace “an” with “On Loan” and “ee” with “Free”.  This will help in the creation of a new column “Contract Agreement”. 
-The "Contract Agreement" column indicates the type of deal the player signed. This information will be useful for categorizing the players into three groups: Free, Contract, and Loan.
-To make this column, navigate to the "Add Column" tab, click on "Conditional Column" and set up the column as illustrated in the image below.
+
+![an](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/dd8964a4-2003-4030-9cfa-87e04ae1a2a6)
+
+The "Contract Agreement" column indicates the type of deal the player signed. 
+
+This information will be useful for categorizing the players into three groups: Free, Contract, and Loan.
+
+To create this column, navigate to the "Add Column" tab, 
+
+click on "Conditional Column" and set up the column as illustrated in the image below.
+
+![cnAg](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/34a8c478-79af-43cd-a59a-26554e39eb36)
+
 Now, modify the data type for the "Contract StartYear" column to a whole number and replace any errors with zero (0). This adjustment will facilitate calculating the contract duration by finding the difference between the Contract StartYear and Contract EndYear.
 Add “Contract duration” column by subtracting the Contract StartYear from the Contract EndYear as shown in the image below. 
 Combine the "Contract StartYear" and "Contract EndYear" columns using the delimiter (-), and label the new column as "Contract" and replace “0- “with “null”. 
