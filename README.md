@@ -202,8 +202,12 @@ click on "Conditional Column" and set up the column as illustrated in the image 
 ![cnAg](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/34a8c478-79af-43cd-a59a-26554e39eb36)
 
 Now, modify the data type for the "Contract StartYear" column to a whole number and replace any errors with zero (0). This adjustment will facilitate calculating the contract duration by finding the difference between the Contract StartYear and Contract EndYear.
+
+
 Add “Contract duration” column by subtracting the Contract StartYear from the Contract EndYear as shown in the image below. 
+
 Combine the "Contract StartYear" and "Contract EndYear" columns using the delimiter (-), and label the new column as "Contract" and replace “0- “with “null”. 
+
 The "Height" column is recorded in feet and inches. To convert it to centimeters (CM), replace the double quotes (") with nothing (“”) and replace the single quotes (') with periods (.). Then, split the column using the delimiter (.) to separate it into two columns—one with foot values and the other with values in inches.
 Convert the column (Height.1) with foot values to centimeters by multiplying each value by 30.48. Similarly, convert the column (Height.2) with inches values to centimeters by multiplying each value by 2.54.
 Generate a new column (Height (cm)) by adding both columns "Height.1" and "Height.2" to obtain the overall height in centimeters.
