@@ -109,10 +109,9 @@ Right click and select “remove columns” from the drop-down list as show in t
 ![Screenshot (441)](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/150b8469-ed60-4c18-846f-6279fc4ee883)
 
 
-The ID uniquely identifies each player in the dataset. When we check with the column profiler in the View tab, we see that player ID 251698 shows up more than once.
+The ID serves as a unique identifier for each player in the dataset. Upon inspecting the column profile in the View tab, we observe a difference between the unique count and the distinct count, indicating the presence of duplicates. Specifically, player ID 251698 appears more than once.
 
-![Screenshot (442)](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/d571c1e7-f2d0-4a14-8c24-92aad5c31d0e)
-
+|![Screenshot (442)](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/d571c1e7-f2d0-4a14-8c24-92aad5c31d0e)| |
 
 
 This indicates that the ID 251698 got repeated, and we need to fix that by removing duplicates on the ID column.
