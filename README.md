@@ -223,17 +223,35 @@ Combine the "Contract StartYear" and "Contract EndYear" columns using the delimi
 ![merge](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/a76b9ab9-712b-4242-8acb-638b15ab2596)
 
 
-The "Height" column is recorded in feet and inches. To convert it to centimeters (CM), replace the double quotes (") with nothing (“”) and replace the single quotes (') with periods (.). 
+The "Height" column is expressed in feet and inches. To convert it to centimeters, modify the "Height" column by converting the feet portion to centimeters (multiplied by 30.48) and the inches portion to centimeters (multiplied by 2.54). The transformation can be accomplished using the following M-code.
 
-![height replace](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/c4638571-a442-4958-bd4a-1365677ccf5a)
+```m
+= Table.TransformColumns(
+    #"Replaced Value4",
+    {
+        {"Height", each Number.FromText(Text.BeforeDelimiter(_, "'")) * 30.48 + Number.FromText(Text.Start(Text.AfterDelimiter(_, "'"), 1)) * 2.54}
+    }
+)
+```
+
+![Height](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/dbc92bfc-f87f-480e-933c-a6d30d28c3cd)
+
+The "Weight" column is in pounds, with "lbs" attached to its values. To resolve this, replace "lbs" with nothing ("") and change the data type to a whole number, as illustrated in the image below. 
+
+The provided M-code achieves this transformation:
+```m
+= Table.TransformColumns(
+    #"Extracted Text After Delimiter",
+    {
+        {"Weight", each Number.FromText(Text.BeforeDelimiter(_, "lbs"))}
+    }
+)
+```
+This code snippet effectively removes the "lbs" suffix and converts the "Weight" column to whole numbers.
 
 
-Then, split the column using the delimiter (.) to separate it into two columns—one with foot values and the other with values in inches.
+![weight](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/ac03d32f-d90e-4bea-af67-3b23ee2aeec7)
 
-Convert the column (Height.1) with foot values to centimeters by multiplying each value by 30.48. Similarly, convert the column (Height.2) with inches values to centimeters by multiplying each value by 2.54.
-Generate a new column (Height (cm)) by adding both columns "Height.1" and "Height.2" to obtain the overall height in centimeters.
-Remove Height.1 and Height.2 columns. 
-The "Weight" column is in pounds, with "lbs" attached to its values. To resolve this, replace "lbs" with nothing ("") and change the data type to a whole number, as illustrated in the image below.
 Change the column name from “Weight” to “Weight (Ibs)”.
 The column "BP" contains the abbreviated positions of players. It would be laborious to replace each abbreviation with the full name individually. To address this, I define the position in a record, as shown below.
 You can replace the abbreviated positions with their full names using the following M-code:
