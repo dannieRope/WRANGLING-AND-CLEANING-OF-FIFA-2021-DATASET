@@ -252,8 +252,32 @@ This code snippet effectively removes the "lbs" suffix and converts the "Weight"
 
 ![weight](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/ac03d32f-d90e-4bea-af67-3b23ee2aeec7)
 
-Change the column name from “Weight” to “Weight (Ibs)”.
-The column "BP" contains the abbreviated positions of players. It would be laborious to replace each abbreviation with the full name individually. To address this, I define the position in a record, as shown below.
+Change the Height and Weight column name to "Height(cm) and “Weight (Ibs)” respectively. 
+
+The column "BP" contains the abbreviated positions of players. It would be laborious to replace each abbreviation with the full name individually. To address this, I define the positions in a record, as shown below.
+```
+BestPosition =
+[CAM = "Center Attack Midfield",
+ CB = "Center Back",
+ CDM = "Center Defending Midfield",
+ CF = "Center Forward",
+ RW = "Right Wing",
+ CM = "Center Midfield",
+ LW = "Left Wing",
+ GK = "Goal Keeper",
+ LB = "Left Back",
+ LM = "Left MidField",
+ LWB = "Left Wing Back",
+ RB = "Right Back",
+ RWB = "Right Back",
+ RM = "Right Midfield",
+ ST = "Striker"]
+
+```
+
+![best position](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/93c889ee-a582-487c-805f-8daa61584df8)
+
+
 You can replace the abbreviated positions with their full names using the following M-code:
 
 ```m
@@ -261,6 +285,11 @@ You can replace the abbreviated positions with their full names using the follow
 ```
 
 This code assumes that you have a record named "BestPosition" where the keys are the abbreviated positions, and the values are the corresponding full names. 
+
+![best position](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/ea094594-28ff-4193-b905-187cc0c24b6a)
+
+
+
 To fix the formatting of the Wage, Value, and Release Clause columns, follow these steps:
 
 1. **Wage Column:**
