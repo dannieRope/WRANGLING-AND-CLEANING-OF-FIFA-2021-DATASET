@@ -289,7 +289,6 @@ This code assumes that you have a record named "BestPosition" where the keys are
 ![best position](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/ea094594-28ff-4193-b905-187cc0c24b6a)
 
 
-
 To fix the formatting of the Wage, Value, and Release Clause columns, follow these steps:
 
 1. **Wage Column:**
@@ -308,15 +307,35 @@ To fix the formatting of the Wage, Value, and Release Clause columns, follow the
 
 4. **Modify M-Code for Wage Column:**
    - Change the end delimiter for the Wage Column to "K" in the M-code.
+     
+Below is the  m-code for the above transformation steps 
+
+```m
+= Table.TransformColumns(Lookup, {{"Value", each Number.From(Text.BetweenDelimiters(_, "€", "M"))*1000000}, 
+         {"Release Clause", each Number.FromText(Text.BetweenDelimiters(_, "€", "M"))*1000000},
+         {"Wage", each Number.FromText(Text.BetweenDelimiters(_, "€", "K"))*1000}})
+```
+
+![wage](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/d6ee9203-24eb-4a84-b908-0d496d1a062b)
 
 Change the data type of all three columns (Wage, Value, and Release Clause) to currency and rename them by adding (€). 
-For the "W/F," "S/M," and "IR" columns, which represent a player's weak foot rating, skill move rating, and international rating, respectively, and are rated on a scale from 1 to 5, you can eliminate the star rating and change the data type to whole numbers using the "Replace Value" feature.
+
+For the "W/F," "S/M," and "IR" columns, which represent a player's weak foot rating, skill move rating, and international rating, respectively, are rated on a scale from 1 to 5, you can eliminate the star rating and change the data type to whole numbers using the "Replace Value" feature.
+
 To remove the star ratings from the "W/F," "S/M," and "IR" columns, follow these steps:
+
 1. Select all three columns: "W/F," "S/M," and "IR."
-2. Go to the Transform tab.
-3. Click on "Replace Values."
-4. Replace the star ("★") with nothing ("").
-5. Confirm the replacement.
+   
+3. Go to the Transform tab.
+   
+5. Click on "Replace Values."
+   
+7. Replace the star ("★") with nothing ("").
+   
+9. Confirm the replacement.
+
+![star fixed](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/e80d6b2c-10e5-4f53-b49e-49b21cbb3628)
+
 
 The Loan date column has most of its value as N/A which is the date value for the players which are not on loan. We replace the N/A with null values and change the data type to date. 
 To replace "N/A" values with null and change the data type to date in the "Loan Date" column, you can use the following M-code:
@@ -332,6 +351,9 @@ To replace "N/A" values with null and change the data type to date in the "Loan 
 
 This code replaces "N/A" with null and changes the data type to a nullable date.
 
+![loanfixed](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/77ab6c62-32f7-4cba-b139-402ec1a1077d)
+
+
 To address the inconsistencies in the "Hits" column where some values have "K" attached, signifying a thousand, you can remove the "K" and multiply those values by 1000. Here's the M-code for this transformation:
 
 ```m
@@ -343,5 +365,8 @@ To address the inconsistencies in the "Hits" column where some values have "K" a
 )
 ```
 
-This code checks if a value in the "Hits" column ends with "K." If it does, it removes the "K" and multiplies the remaining number by 1000. If not, it converts the value to a number directly. Adjust the column names as needed.
+This code checks if a value in the "Hits" column ends with "K." If it does, it removes the "K" and multiplies the remaining number by 1000. If not, it converts the value to a number directly. 
+
+![Hitfixed](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/9859cc8f-a9fe-4c3f-9422-6a1a7ff2a316)
+
 Some columns need to be in percentage format. These columns include PAC, SHO, PAS, DRI, DEF, PHY, POT, and ↓OVA. To convert these columns to percentages, I divided each value by 100 and changed their data type to percentage. You can find the code for this transformation below. 
