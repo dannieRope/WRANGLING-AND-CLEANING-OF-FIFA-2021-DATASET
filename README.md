@@ -89,7 +89,7 @@ Here are the descriptions of some columns in the dataset.
 
 # DATA CLEANING PROCESS
 
-To bring the data into Power Query Editor, head over to the Data tab in Microsoft Excel.
+To bring the data into Power Query Editor, I head over to the Data tab in Microsoft Excel.
 
 Click on "Get Data" and then select "From File," followed by "From Text/CSV." 
 
@@ -100,7 +100,7 @@ Pick the location of the file to load it into the Query Editor.
 ![Loaded data](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/653aed6d-ef77-4a49-8707-53ab040e87a0)
 
 
-The cleaning process starts by removing some columns that are unnecessary or won't contribute to our analysis.
+I started the cleaning process by removing some columns that are unnecessary or won't contribute to our analysis.
 
 These columns include Photo URL and Player URL. To eliminate these columns, choose the two columns.
 
@@ -109,7 +109,7 @@ Right-click on the selected columns, and from the drop-down list, click on "Remo
 ![Screenshot (441)](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/150b8469-ed60-4c18-846f-6279fc4ee883)
 
 
-The ID serves as a unique identifier for each player in the dataset. Upon inspecting the column profile, we observe a difference between the unique count and the distinct count, indicating the presence of duplicates. Specifically, player ID 251698 appears more than once.
+The ID serves as a unique identifier for each player in the dataset. Upon inspecting the column profile, I observed a difference between the unique count and the distinct count, indicating the presence of duplicates. Specifically, player ID 251698 appears more than once.
 
 ![Screenshot (442)](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/d571c1e7-f2d0-4a14-8c24-92aad5c31d0e)
 
@@ -121,7 +121,7 @@ Checking for misspelling in the “Name” column, all names are correct except 
 This name has a special character which needs to be replaced. 
 The "Name" column is a combination of the first initial of the player's first name and their full last name. 
 
-To fix this, replace the special character with (S) which is the first initial of the player's first name as shown in the image below. 
+To fix this, I replaced the special character with (S) which is the first initial of the player's first name as shown in the image below. 
 
 ![special](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/cb9af477-f817-4177-b592-9b25a837215b)
 
@@ -296,7 +296,7 @@ To fix the formatting of the Wage, Value, and Release Clause columns, follow the
    - Multiply the extracted number by 1000.
 
 2. **Value and Release Clause Columns:**
-   - Extract the number between "€" and "M."
+   - Extract the number between "€" and "M" and number between "€" and "K"
    - Multiply the extracted number by 1000000.
 
 3. **Instructions:**
@@ -311,8 +311,8 @@ To fix the formatting of the Wage, Value, and Release Clause columns, follow the
 Below is the  m-code for the above transformation steps 
 
 ```m
-= Table.TransformColumns(Lookup, {{"Value", each Number.From(Text.BetweenDelimiters(_, "€", "M"))*1000000}, 
-         {"Release Clause", each Number.FromText(Text.BetweenDelimiters(_, "€", "M"))*1000000},
+= Table.TransformColumns(Lookup, {{"Value", each try Number.FromText(Text.BetweenDelimiters(_, "€", "M"))*1000000 otherwise Number.FromText(Text.BetweenDelimiters(_, "€", "K"))*1000 }, 
+         {"Release Clause", each try Number.FromText(Text.BetweenDelimiters(_, "€", "M"))*1000000 otherwise Number.FromText(Text.BetweenDelimiters(_, "€", "K"))*1000 },
          {"Wage", each Number.FromText(Text.BetweenDelimiters(_, "€", "K"))*1000}})
 ```
 
@@ -344,7 +344,7 @@ To replace "N/A" values with null and change the data type to date in the "Loan 
 = Table.TransformColumns(
     #"PreviousStep",
     {
-        {"Loan Date", each if _ = "N/A" then null else DateTime.FromText(_, "en-US"), type nullable date}
+        {"Loan Date", each if _ = "N/A" then "Not on Loan" else DateTime.FromText(_, "en-US"), type nullable date}
     }
 )
 ```
@@ -370,3 +370,29 @@ This code checks if a value in the "Hits" column ends with "K." If it does, it r
 ![Hitfixed](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/9859cc8f-a9fe-4c3f-9422-6a1a7ff2a316)
 
 Some columns need to be in percentage format. These columns include PAC, SHO, PAS, DRI, DEF, PHY, POT, and ↓OVA. To convert these columns to percentages, I divided each value by 100 and changed their data type to percentage. You can find the code for this transformation below. 
+
+```m
+= Table.TransformColumns(Hits, {{"PAC", each _ / 100,Percentage.Type},{"SHO", each _ / 100, Percentage.Type},{"PAS", each _ / 100,Percentage.Type},{"DRI", each _ / 100, Percentage.Type},{"DEF", each _ / 100, Percentage.Type},{"PHY", each _ / 100, Percentage.Type},{"POT", each _ / 100,Percentage.Type},{"↓OVA", each _ / 100,Percentage.Type}})
+```
+![%final](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/6376001e-560a-4afb-ae34-0bde5535dbf0)
+
+
+Finally, I rename all the abbreviated columns to their full names so they are easier to recognize and understand. The code and the outcome are provided below. 
+
+```m
+= Table.RenameColumns(#"Divided Column",{{"↓OVA", "Overall Rating"},{"POT", " Potential Rating"},{"W/F", "Weak Foot Rating"},{"SM", "Skill Move Rating"},{"A/W", "Attacking Work Rate"},{"D/W", "Defensive Work Rate"},{"IR", "International Reputation Rating"},{"PAC", "Pace Rating"},{"SHO", "Shooting Rating"},{"PAS", "Passing Rating"},{"DRI", "Dribbling Rating"},{"DEF", "Defensive Rating"},{"PHY", "Physical Rating"},{"BP", "Best Position"},{"BOV", "Overall Rating in Best Position"}})
+```
+
+ ![Columnsfinal](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/8d175381-fdd9-4224-a75c-6a05ef061a03)
+
+ ## CONCLUSION 
+Cleaning the data wasn't easy. I had to search for ways to clean certain columns, and in the process, I discovered M-code.
+
+Understanding how to use M-code for data transformation simplifies the process and reduces the number of steps needed for cleaning.
+
+It is important to remember that in order to clean the FIFA 2021 dataset, one must possess domain knowledge of the data category.
+
+For this reason, more research is advised, and it exposes me to the world of football by helping me comprehend terms used in the game.
+
+
+
