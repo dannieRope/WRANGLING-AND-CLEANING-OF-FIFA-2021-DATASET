@@ -384,8 +384,17 @@ Finally, I rename all the abbreviated columns to their full names so they are ea
 ```
 
  ![Columnsfinal](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/8d175381-fdd9-4224-a75c-6a05ef061a03)
+ 
+
+ Attacking’, ‘Crossing’, ‘Finishing’, ‘Heading_accuracy’, ‘Short_passing’, ‘Volleys’, ‘Skill’, ‘Dribbling’, ‘Curve’, ‘FK_accuracy’, ‘Long_passing’, ‘Ball_control’, ‘Movement’, ‘Acceleration’, ‘Spring_speed’, ‘Agility’, ‘Reactions’, ‘Balance’, ‘Power’, ‘Shot_power’, ‘Jumping’, ‘Stamina’, ‘Strength’, ‘Long_shot’, ‘Mentality’, ‘Aggression’, ‘Interception’, ‘Positioning’, ‘Vision’, ‘Penalties’, ‘Composure’, ‘Defending’, ‘Marking’, ‘Standing_tackle’, ‘Sliding_tackle’, ‘Goalkeeping’, ‘GK_handling’, ‘GK_diving’, ‘Gk_kicking’, ‘Gk_positioning’, ‘Gk_reflexes’, ‘Total_stats’, ‘Base_stats’, ‘Pace’, ‘Shooting’, ‘Passing’, ‘DRI’, ‘DEF’, ‘Physical’, ‘Best_position’, ‘Preferred_foot’, ‘Attacking_workrate’, and ‘Defensive_workrate’ : were checked, and no issues found within the data. The data types were checked, and changes were made for some that had wrong data types and column names corrected.
+
+The image below is the preview of the clean data ready for further analysis. 
+
+![Clean](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/90737891-a74e-4094-a75e-5e2d4abacb2f)
+
 
  ## CONCLUSION 
+ 
 Cleaning the data wasn't easy. I had to search for ways to clean certain columns, and in the process, I discovered M-code.
 
 Understanding how to use M-code for data transformation simplifies the process and reduces the number of steps needed for cleaning.
@@ -393,6 +402,9 @@ Understanding how to use M-code for data transformation simplifies the process a
 It is important to remember that in order to clean the FIFA 2021 dataset, one must possess domain knowledge of the data category.
 
 For this reason, more research is advised, and it exposes me to the world of football by helping me comprehend terms used in the game.
+
+![image](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/877d4650-7df7-4603-95b2-759dda25080b)
+
 
 
 
