@@ -395,7 +395,7 @@ Understanding how to use M-code for data transformation simplifies the process a
 
 It is important to remember that in order to clean the FIFA 2021 dataset, one must possess domain knowledge of the data category.
 
-For this reason, more research is advised, and it exposes me to the world of football by helping me comprehend terms used in the game.
+For this reason, more research is advised. Cleaning this data exposed me to the world of football by helping me comprehend terms used in the game.
 
 ![image](https://github.com/dannieRope/WRANGLING-AND-CLEANING-OF-FIFA-2021-DATASET/assets/132214828/877d4650-7df7-4603-95b2-759dda25080b)
 
