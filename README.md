@@ -126,7 +126,7 @@ The "Name" column comprises the first initial of the player's first name and the
 
 To clean the "Team and Contract" column, several steps are involved. There is the need to separate the club names from the contract years.
 
-Initially, the column was split using the tilde (~) as the delimiter. 
+Initially, the column was split using the tilde as the delimiter. 
 This was achieved by selecting the "Split Column" option in either the Home or Transform tab.
 The process involved choosing "By delimiter" from the list, specifying the tilde (~) as the delimiter, and confirming the action by clicking okay.
 
